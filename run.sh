@@ -11,7 +11,15 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="$SCRIPT_DIR/backend"
-BACKEND_VENV="$BACKEND_DIR/.venv"
+
+# Prefer a local .venv; fall back to the fixed Docker-image path.
+if [[ -d "$BACKEND_DIR/.venv" ]]; then
+  BACKEND_VENV="$BACKEND_DIR/.venv"
+elif [[ -d /opt/backend-venv ]]; then
+  BACKEND_VENV=/opt/backend-venv
+else
+  BACKEND_VENV="$BACKEND_DIR/.venv"
+fi
 
 # Docker-friendly defaults; override with env vars.
 # Set BACKEND_PORT=auto or FRONTEND_PORT=auto to request dynamic assignment.

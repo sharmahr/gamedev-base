@@ -8,7 +8,13 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="$SCRIPT_DIR/backend"
-BACKEND_VENV="$BACKEND_DIR/.venv"
+
+# Prefer a local .venv; fall back to the fixed Docker-image path.
+if [[ -d /opt/backend-venv ]]; then
+  BACKEND_VENV=/opt/backend-venv
+else
+  BACKEND_VENV="$BACKEND_DIR/.venv"
+fi
 
 ensure_backend_venv() {
 	if [[ ! -d "$BACKEND_VENV" ]]; then
