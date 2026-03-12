@@ -16,8 +16,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app-container">
-      <h1>{message}</h1>
+    <div className="flex items-center justify-center h-screen bg-slate-900 font-sans">
+      <h1 className="text-5xl font-bold text-rose-500">{message}</h1>
     </div>
   );
 }

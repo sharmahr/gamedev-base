@@ -51,6 +51,9 @@ echo "Using host backend port:  ${HOST_BACKEND_PORT} (container 8000)"
 
 cd "$SCRIPT_DIR"
 
+echo "=== Building Docker image ==="
+docker build -t "$IMAGE_NAME" .
+
 docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 docker run -d \
